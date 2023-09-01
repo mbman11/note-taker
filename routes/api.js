@@ -8,16 +8,17 @@ route.get("/notes", (req,res) => {
   })
 });
 
-route.post('/notes', (req,res)=>{
+route.post('/notes', (req,res) => {
   const newNote = req.body
   readFile('db/db.json')
   .then(data => {
     const parsedData = JSON.parse(data)
     parsedData.push(newNote);
     return writeFile("db/db.json", JSON.stringify(parsedData))
-    .then(data => {
-      res.json('jobs done');
+    .then(() => {
+      res.json('done');
     })
   })
 });
 
+module.exports = route;
